@@ -48,12 +48,15 @@ person *create_family(int generations)
     // Generation with parent data
     if (generations > 1)
     {
-        person *p1 = malloc(sizeof(person));
+        // Allocate memory based on the number of generations
+        int n = generations - 2;
+        
+        person *p1 = malloc(n * sizeof(person));
         if (p1 == NULL)
         {
             return false;
         }
-        person *p2 = malloc(sizeof(person));
+        person *p2 = malloc(n * sizeof(person));
         if (p2 == NULL)
         {
             return false;
@@ -62,10 +65,10 @@ person *create_family(int generations)
 
         // TODO: Recursively create blood type histories for parents
 
-        p1->parents[0] = create_family(0);
-        p1->parents[1] = create_family(0);
-        p2->parents[0] = create_family(0);
-        p2->parents[1] = create_family(0);
+        p1->parents[0] = create_family(n);
+        p1->parents[1] = create_family(n);
+        p2->parents[0] = create_family(n);
+        p2->parents[1] = create_family(n);
         p1->alleles[0] = p1->parents[0]->alleles[rand() % 2];
         p1->alleles[1] = p1->parents[1]->alleles[rand() % 2];
         p2->alleles[0] = p2->parents[0]->alleles[rand() % 2];
